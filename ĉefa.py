@@ -14,6 +14,9 @@ def venontaVico():
 			vereco = True
 		loko += 1
 	loko += 1
+	if loko >= len(vortaro):
+		print("FINFINE!!")
+		quit()
 	if vereco:
 		return(vico)
 	else:
@@ -26,8 +29,14 @@ def tranĉi(vico):
 		vico = vico[1:]
 	return((vorto[:-3], vico))
 
+def erigi():
+	vorto, difino = tranĉi(venontaVico())
+	ruler = "    .    .    .    .    .    .    .    ."
+	print(int(loko / len(vortaro) * 100))
+	print(difino)
+	print(ruler[:len(vorto)])
+	print(vorto)
+	#respondo = input("> ")
+
 while True:
-	t = tranĉi(venontaVico())
-	print(t[0])
-	print(t[1])
-	input()
+	erigi()
