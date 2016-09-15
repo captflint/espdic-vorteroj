@@ -35,30 +35,66 @@ def tranĉi(vico):
 		vico = vico[1:]
 	return((vorto[:-3], vico))
 
-def erigi():
-	vorto, difino = tranĉi(venontaVico())
+def erigi(vorto, difino):
 	ruler = "    .    .    .    .    .    .    .    ."
-	print('\n' + str(int(loko / len(vortaro) * 1000)))
-	print(difino)
-	print(ruler[:len(vorto)])
-	print(vorto)
-	respondo = input("> ")
-	if respondo == '-':
-		vorteroj.write(vorto)
-	elif respondo == 'f':
-		quit()
+	neFinita = True
+	while neFinita:
+		print('\n' + str(int(loko / len(vortaro) * 1000)))
+		print(difino)
+		print(ruler[:len(vorto)])
+		print(vorto)
+		respondo = input("> ")
+		erigitaVorto = vorto
+		if respondo == '-':
+			vorteroj.write(vorto + '\n')
+			neFinita = False
+		elif respondo in 'Ff':
+			quit()
+		else:
+			numero = ''
+			listoDeNumeroj = []
+			for litero in respondo:
+				if litero in '0123456789':
+					numero += litero
+				else:
+					if len(numero) > 0:
+						listoDeNumeroj.append(int(numero))
+						numero = ''
+			if len(numero) > 0:
+				listoDeNumeroj.append(int(numero))
+			if len(listoDeNumeroj) > 0:
+				pasitaLiteroj = 0
+				for numero in listoDeNumeroj:
+					pasitaLiteroj += numero
+					erigitaVorto = erigitaVorto[:pasitaLiteroj] + "'" + erigitaVorto[pasitaLiteroj:]
+					pasitaLiteroj += 1
+				print()
+				print(difino)
+				print(erigitaVorto)
+				respondo2 = input("Ĉu ĉi tiu pravas? ")
+				if respondo2 in 'jJ':
+					vorteroj.write(erigitaVorto + '\n')
+					neFinita = False
+
+finitaListo = []
+nuntempaVorto = ""
+for litero in finitaVortoj:
+	if litero == '\n':
+		finitaListo.append(nuntempaVorto)
+		nuntempaVorto = ""
+	elif litero != "'":
+		nuntempaVorto += litero
+
+daŭriĝi = True
+while daŭriĝi:
+	vorto, difino = tranĉi(venontaVico())
+	if vorto in finitaListo:
+		pass
 	else:
-		numero = ''
-		listoDeNumeroj = []
-		for litero in respondo:
-			if litero in '0123456789':
-				numero += litero
-			else:
-				if len(numero) > 0:
-					listoDeNumeroj.append(int(numero))
-					numero = ''
-		print(listoDeNumeroj)
+		erigi(vorto, difino)
+		daŭriĝi = False
 
 while True:
-	erigi()
+	vorto, difino = tranĉi(venontaVico())
+	erigi(vorto, difino)
 
