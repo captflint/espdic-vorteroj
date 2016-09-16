@@ -9,6 +9,7 @@ f.close()
 vorteroj = open('vorteroj.txt', 'a')
 
 loko = 0
+lastajNombroj = ""
 
 def venontaVico():
 	global loko
@@ -36,6 +37,7 @@ def tranĉi(vico):
 	return((vorto[:-3], vico))
 
 def erigi(vorto, difino):
+	global lastajNombroj
 	ruler = "    .    .    .    .    .    .    .    ."
 	neFinita = True
 	while neFinita:
@@ -45,6 +47,10 @@ def erigi(vorto, difino):
 		print(vorto)
 		respondo = input("> ")
 		erigitaVorto = vorto
+		if len(respondo) == 0:
+			respondo = lastajNombroj
+		else:
+			lastajNombroj = respondo
 		if respondo == '-':
 			vorteroj.write(vorto + '\n')
 			neFinita = False
